@@ -19,7 +19,7 @@ namespace vk
     struct enumerate_fn
     {
         using info = fn_info<F>;
-        using element_type = std::remove_pointer_t<class info::template arg_type<info::arg_count - 1>>;
+        using element_type = std::remove_pointer_t<typename info::template arg_type<info::arg_count - 1>>;
 
         template<class...Args> requires std::same_as<typename info::return_type, VkResult>
         Result<soo_vector<element_type>> operator()(Args&&...args) const
@@ -60,7 +60,7 @@ namespace vk
     struct get_fn
     {
         using info = fn_info<F>;
-        using result_type = std::remove_pointer_t<class info::template arg_type<info::arg_count - 1>>;
+        using result_type = std::remove_pointer_t<typename info::template arg_type<info::arg_count - 1>>;
         using code_type = info::return_type;
 
         template<class...Args> requires std::same_as<code_type, void>
@@ -99,7 +99,7 @@ namespace vk
             using info = fn_info<F>;
             if constexpr(not requires{ 
                 requires not std::is_const_v<std::remove_pointer_t<
-                    class info::template arg_type<info::arg_count - 1>
+                    typename info::template arg_type<info::arg_count - 1>
                 >>; 
             })
             {
@@ -107,7 +107,7 @@ namespace vk
             }
             else if constexpr(not requires{ 
                 requires std::unsigned_integral<
-                    class info::template arg_type<info::arg_count - 2>
+                    typename info::template arg_type<info::arg_count - 2>
                 >; 
             })
             {

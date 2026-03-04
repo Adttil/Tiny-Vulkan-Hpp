@@ -6,7 +6,7 @@
 #define GLFW_INCLUDE_VULKAN
 #include <GLFW/glfw3.h>
 
-#include <vkpp/vkpp.hpp>
+#include <tinyvkpp/tinyvkpp.hpp>
 
 struct Frame
 {

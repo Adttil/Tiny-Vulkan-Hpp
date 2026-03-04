@@ -242,6 +242,6 @@ template<class...T>
 struct std::tuple_size<vk::tuple<T...>> : std::integral_constant<size_t, sizeof...(T)>{};
 
 template<size_t I, class...T>
-struct std::tuple_element<I, vk::tuple<T...>> : std::type_identity<class vk::tuple<T...>::template type_at<I>>{};
+struct std::tuple_element<I, vk::tuple<T...>> : std::type_identity<typename vk::tuple<T...>::template type_at<I>>{};
 
 #endif
