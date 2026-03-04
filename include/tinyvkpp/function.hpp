@@ -6,7 +6,6 @@
 #include <concepts>
 #include <utility>
 #include <stdexcept>
-#include <print>
 
 #include "soo_vector.hpp"
 #include "result.hpp"
@@ -93,10 +92,14 @@ namespace vk
     template<auto F>
     struct enhance_fn
     {
+        using info = fn_info<F>;
+        
         template<class...Args>
         constexpr decltype(auto) operator()(Args&&...args) const
         {
-            using info = fn_info<F>;
+            //This will break in msvc for some bug.
+            //using info = fn_info<F>;
+            using type = info::template arg_type<3 - 1>;
             if constexpr(not requires{ 
                 requires not std::is_const_v<std::remove_pointer_t<
                     typename info::template arg_type<info::arg_count - 1>

@@ -1,2 +1,6 @@
 add_executable(triangle "triangle.cpp")
-target_link_libraries(triangle PRIVATE tinyvkpp glfw)
+if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+    target_link_libraries(triangle PRIVATE tinyvkpp glfw stdc++exp)
+else()
+    target_link_libraries(triangle PRIVATE tinyvkpp glfw)
+endif()

@@ -1,6 +1,7 @@
 #include <array>
 #include <ranges>
 #include <algorithm>
+#include <print>
 
 #define GLFW_INCLUDE_NONE
 #define GLFW_INCLUDE_VULKAN

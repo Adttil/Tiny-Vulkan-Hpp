@@ -3,7 +3,7 @@
 
 #include <functional>
 #include <memory>
-#include <print>
+#include <cstring>
 
 namespace vk 
 {
