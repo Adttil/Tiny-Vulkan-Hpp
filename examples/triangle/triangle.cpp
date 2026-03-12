@@ -41,14 +41,18 @@ public:
         init_steps.submit(*this);
     }
 
-    void run()
-    {
-        bool is_quit = false;
+    struct frame{};
 
-        while (not glfwWindowShouldClose(window_)) 
-        {
+    auto frames()
+    {
+        return vk::generate_until_null([&]() -> std::optional<frame>{ 
             glfwPollEvents();
-        }
+            if(glfwWindowShouldClose(window_))
+            {
+                return std::nullopt;
+            }
+            return frame{}; 
+        });
     }
 
     ~Displayer() noexcept
@@ -595,12 +599,29 @@ private:
 
 class Renderer{};
 
+std::optional<int> get()
+{
+    static int x = 0;
+
+    if(int v = x++; v < 5)
+    {
+        return v;
+    }
+    else
+    {
+        return std::nullopt;
+    }
+}
+
 int main(int, char*[])
 {
     try
     {
-        Displayer app{};
-        app.run();
+        Displayer displayer{};
+        for(auto frame : displayer.frames())
+        {
+
+        }
     }
     catch(std::exception& e)
     {
